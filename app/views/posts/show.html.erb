@@ -1,0 +1,28 @@
+<h1><%= @post.title %></h1>
+<p><%= simple_format @post.body %></p>
+
+<h3>Comments</h3>
+<!-- comment が存在したら、commentsの各要素(comment)に対して繰り返しbody を表示 -->
+<% if @post.comments.any? %>
+<ul>
+    <% @post.comments.each do |comment| %>
+    <li>
+        <%= comment.body %>
+        <%= link_to '[x]',
+            post_comment_path(@post, comment), # DELETE メソッドの prefix は post
+            method: :delete,  # DELETE は明示する必要がある
+            class: 'command',
+            data: { confirm: 'Sure?' } %>  <!-- 確認ダイアログ -->
+    </li>
+    <% end %>
+</ul>
+<% end %>
+
+<%= form_for([@post, @post.comments.build]) do |f| %> <!-- post と、postに紐付いたコメントの新しいオブジェクトを渡す -->
+<p>
+    <%= f.text_field :body %>
+</p>
+<p>
+    <%= f.submit %>
+</p>
+<% end %>

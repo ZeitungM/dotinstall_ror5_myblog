@@ -1,0 +1,19 @@
+<%= form_for @post do |f| %> <!-- postモデルへのフォーム,  -->
+<p>
+    <%= f.text_field :title, placeholder: 'enter title' %> <!-- title に対するテ
+キストフィールド -->
+    <% if @post.errors.messages[:title].any? %> <!-- title にエラーがあったら#エ
+ラーがなくなるまで1つめのエラーを表示 -->
+        <span class="error"><%= @post.errors.messages[:title][0] %></span>
+    <% end %>
+</p>
+<p>
+    <%= f.text_area :body, placeholder: 'enter body text' %>
+    <% if @post.errors.messages[:body].any? %> <!-- body にエラーがあったらエラ>ーがなくなるまで1つめのエラーを表示 -->
+        <span class="error"><%= @post.errors.messages[:body][0] %></span>
+    <% end %>
+</p>
+<p>
+    <%= f.submit %>
+</p>
+<% end %>
